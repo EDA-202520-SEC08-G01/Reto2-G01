@@ -119,6 +119,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 * [Dario Correal][dariocorreal-url] is the original author and main developer of the library.
 * [Santiago Arteaga][phillipus85-url] is a contributor and repository administrator. 
 * [Luis Florez][le99-url] is a contributor and developed examples and tutorials for the library.
+* [Lina Ojeda][lojedaa-url] es colaborador y desarrolló la última versión de la actividad.
 
 [Back to top](#retos-template)
 
@@ -150,6 +151,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 [dariocorreal-url]: https://github.com/dariocorreal
 [phillipus85-url]: https://github.com/phillipus85
 [le99-url]: https://github.com/le99
+[lojedaa-url]: https://github.com/lojedaa
 <!-- EDA lab + challenges repository -->
 [sample-mvc-url]: https://github.com/ISIS1225DEVS/ISIS1225-SampleMVC
 [sample-conflicts-url]: https://github.com/ISIS1225DEVS/ISIS1225-SampleConflicts
