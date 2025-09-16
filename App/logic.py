@@ -19,13 +19,6 @@ def load_data(catalog, filename):
 
 # Funciones de consulta sobre el catálogo
 
-def get_data(catalog, id):
-    """
-    Retorna un dato por su ID.
-    """
-    #TODO: Consulta en las Llamar la función del modelo para obtener un dato
-    pass
-
 
 def req_1(catalog):
     """
@@ -71,22 +64,6 @@ def req_6(catalog):
     Retorna el resultado del requerimiento 6
     """
     # TODO: Modificar el requerimiento 6
-    pass
-
-
-def req_7(catalog):
-    """
-    Retorna el resultado del requerimiento 7
-    """
-    # TODO: Modificar el requerimiento 7
-    pass
-
-
-def req_8(catalog):
-    """
-    Retorna el resultado del requerimiento 8
-    """
-    # TODO: Modificar el requerimiento 8
     pass
 
 
