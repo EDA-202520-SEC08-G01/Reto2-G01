@@ -115,3 +115,126 @@ def delete_element(my_list, pos):
     my_list["size"] -= 1
     return my_list
 
+def default_sort_criteria(element_1, element_2):
+    is_sorted = False
+    if element_1 < element_2:
+        is_sorted=True
+    return is_sorted
+
+def selection_sort(my_list,sort_crit):
+    s = size(my_list)
+    for i in range(s - 1):
+        mejor = i
+        for j in range(i + 1, s):
+            if sort_crit(get_element(my_list, j),get_element(my_list, mejor)):
+                mejor = j
+        if mejor != i:
+            exchange(my_list, i, mejor)
+        
+    return my_list 
+
+def insertion_sort(my_list, sort_crit):
+    n = size(my_list)
+    for i in range(1, n):
+        key = get_element(my_list, i)
+        j = i - 1
+        while j >= 0 and not sort_crit(get_element(my_list, j), key):
+            exchange(my_list, j + 1, get_element(my_list, j))
+            j -= 1
+        exchange(my_list, j + 1, key)
+
+    return my_list
+
+def merge_sort(list, sort_crit):
+    if list["size"] <= 1:
+        return list
+
+    mid = list["size"] // 2
+    left = sub_list(list, 0, mid)
+    right = sub_list(list, mid, list["size"] - mid)
+
+    left_sorted = merge_sort(left, sort_crit)
+    right_sorted = merge_sort(right, sort_crit)
+
+    return merge(left_sorted, right_sorted, sort_crit)
+
+
+def merge(left, right, sort_crit):
+    merged = new_list()
+    i = j = 0
+
+    while i < left["size"] and j < right["size"]:
+        if sort_crit(get_element(left, i), get_element(right, j)):
+            add_last(merged, get_element(left, i))
+            i += 1
+        else:
+            add_last(merged, get_element(right, j))
+            j += 1
+
+    while i < left["size"]:
+        add_last(merged, get_element(left, i))
+        i += 1
+
+    while j < right["size"]:
+        add_last(merged, get_element(right, j))
+        j += 1
+
+    return merged
+
+def shell_sort(list, sort_crit):
+    n = size(list)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = get_element(list, i)
+            j = i
+            while j >= gap and not sort_crit(get_element(list, j - gap), temp):
+                exchange(list, j, get_element(list, j - gap))
+                j -= gap
+            exchange(list, j, temp)
+        gap //= 2
+
+    return list
+
+def concatenar(list1, list2):
+    # Concatena dos listas y retorna la nueva lista.
+    retorno = new_list()
+    for element in list1:
+        add_last(retorno, element) # copia todos los elementos de list1
+    for element in list2:
+        add_last(retorno, element) # dsps copia todos los elementos de list2
+
+    return retorno
+
+def quick_sort(list, sort_crit):
+    
+    n = size(list)
+    if n <= 1:
+        return list
+    
+    pivote = get_element(list, 0) # -> El primer elemento es el pivote del quick sort
+
+    # 3 particiones: menores, mayores, iguales al pivote
+    antes_pivote = new_list()
+    dsps_pivote = new_list()
+    iguales = new_list()
+
+    # En este ciclo se llenan las 3 particiones en dependencia de su relación con el pivote
+    for i in range(n):
+        curr = get_element(list, i)
+        if curr == pivote:
+            add_last(iguales, curr)
+        elif sort_crit(curr, pivote):
+            add_last(antes_pivote, curr)
+        else:
+            add_last(dsps_pivote, curr)
+
+
+    # Se ordenan recursivamente las particiones de antes y después. Como iguales = pivote, iguales ya está ordenada (todos son el mismo elemento/número)
+    antes_pivote_sort = quick_sort(antes_pivote, sort_crit)
+    dsps_pivote_sort = quick_sort(dsps_pivote, sort_crit)
+
+    # Se concatenan las 3 particiones y se retorna la lista ordenada: antes -> iguales -> después
+    return concatenar(concatenar(antes_pivote_sort, iguales), dsps_pivote_sort)
+
