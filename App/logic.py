@@ -4,6 +4,8 @@ import csv
 import math
 from DataStructures import array_list as al
 from DataStructures import single_linked_list as sll
+from DataStructures.Map import map_linear_probing as mlb
+from DataStructures.Map import map_separate_chaining as msc
 from datetime import datetime
 
 csv.field_size_limit(2147483647)
@@ -144,12 +146,68 @@ def load_data(catalog, filename):
 # Funciones de consulta sobre el catálogo
 
 
-def req_1(catalog):
-    """
-    Retorna el resultado del requerimiento 1
-    """
-    # TODO: Modificar el requerimiento 1
-    pass
+def req_1(catalog, fecha_inicial_str, fecha_final_str, n_muestra):
+    
+    inicio = get_time()
+    
+    fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d %H:%M:%S")
+    fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d %H:%M:%S")
+
+    taxis = catalog["taxis"]
+    filtrados = al.new_list()
+    
+    for i in range(al.size(taxis)):
+        registro = al.get_element(taxis, i)
+        if fecha_inicial <= registro["pickup_datetime"] <= fecha_final:
+            al.add_last(filtrados, registro)
+
+    def cmp_pickup_datetime(trip1, trip2):
+        return trip1["pickup_datetime"] < trip2["pickup_datetime"]
+
+    al.selection_sort(filtrados, cmp_pickup_datetime)
+
+    total = al.size(filtrados)
+    fmt = "%Y-%m-%d %H:%M:%S"
+
+    primeros = al.new_list()
+    ultimos = al.new_list()
+
+    limite = min(n_muestra, total)
+
+    for i in range(limite):
+        elem = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": elem["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(elem["pickup_latitude"], 5), round(elem["pickup_longitude"], 5)],
+            "dropoff_datetime": elem["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(elem["dropoff_latitude"], 5), round(elem["dropoff_longitude"], 5)],
+            "trip_distance": round(elem["trip_distance"], 2),
+            "total_amount": round(elem["total_amount"], 2)
+        }
+        al.add_last(primeros, info)
+        
+    for i in range(total - limite, total):
+        elem = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": elem["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(elem["pickup_latitude"], 5), round(elem["pickup_longitude"], 5)],
+            "dropoff_datetime": elem["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(elem["dropoff_latitude"], 5), round(elem["dropoff_longitude"], 5)],
+            "trip_distance": round(elem["trip_distance"], 2),
+            "total_amount": round(elem["total_amount"], 2)
+        }
+        al.add_last(ultimos, info)
+
+    final = get_time()
+    tiempo = delta_time(inicio, final)
+
+    resultado = al.new_list()
+    al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
+    al.add_last(resultado, {"total_trayectos": total})
+    al.add_last(resultado, {"primeros": primeros})
+    al.add_last(resultado, {"ultimos": ultimos})
+
+    return resultado
 
 
 def req_2(catalog):
