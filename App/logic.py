@@ -146,12 +146,12 @@ def load_data(catalog, filename):
 # Funciones de consulta sobre el catálogo
 
 
-def req_1(catalog, fecha_inicial_str, fecha_final_str, n_muestra):
+def req_1(catalog, f_inicial, f_final, n):
     
     inicio = get_time()
     
-    fecha_inicial = datetime.strptime(fecha_inicial_str, "%Y-%m-%d %H:%M:%S")
-    fecha_final = datetime.strptime(fecha_final_str, "%Y-%m-%d %H:%M:%S")
+    fecha_inicial = datetime.strptime(f_inicial, "%Y-%m-%d %H:%M:%S")
+    fecha_final = datetime.strptime(f_final, "%Y-%m-%d %H:%M:%S")
 
     taxis = catalog["taxis"]
     filtrados = al.new_list()
@@ -172,7 +172,7 @@ def req_1(catalog, fecha_inicial_str, fecha_final_str, n_muestra):
     primeros = al.new_list()
     ultimos = al.new_list()
 
-    limite = min(n_muestra, total)
+    limite = min(n, total)
 
     for i in range(limite):
         elem = al.get_element(filtrados, i)
