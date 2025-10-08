@@ -4,7 +4,7 @@ import csv
 import math
 from DataStructures import array_list as al
 from DataStructures import single_linked_list as sll
-from DataStructures.Map import map_linear_probing as mlb
+from DataStructures.Map import map_linear_probing as mlp    
 from DataStructures.Map import map_separate_chaining as msc
 from datetime import datetime
 
@@ -241,12 +241,122 @@ def req_5(catalog):
     # TODO: Modificar el requerimiento 5
     pass
 
-def req_6(catalog):
-    """
-    Retorna el resultado del requerimiento 6
-    """
-    # TODO: Modificar el requerimiento 6
-    pass
+def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
+    
+    inicio = get_time()
+
+    # Crear tabla hash con linear probing
+    # num_elements = cantidad estimada de barrios
+    # load_factor = nivel máximo antes de rehash
+    num_barrios = al.size(catalog["neighborhoods"])
+    mapa_barrios = mlp.new_map(num_elements=num_barrios, load_factor=0.7)
+
+    taxis = catalog["taxis"]
+    total_taxis = al.size(taxis)
+    barrios = catalog["neighborhoods"]
+    total_barrios = al.size(barrios)
+
+    # Indexar los viajes por barrio
+    # Para cada viaje, se determina a qué barrio pertenece su punto de recogida
+    for i in range(total_taxis):
+        viaje = al.get_element(taxis, i)
+        pickup_lat = viaje["pickup_latitude"]
+        pickup_lon = viaje["pickup_longitude"]
+
+        # Buscar el barrio más cercano
+        barrio_encontrado = None
+        for j in range(total_barrios):
+            barrio = al.get_element(barrios, j)
+            if abs(barrio["latitude"] - pickup_lat) < 0.01 and abs(barrio["longitude"] - pickup_lon) < 0.01:
+                barrio_encontrado = barrio["neighborhood"]
+                break
+
+        if barrio_encontrado is not None:
+            # Obtener lista actual o crear nueva
+            lista_viajes = mlp.get(mapa_barrios, barrio_encontrado)
+            if lista_viajes is None:
+                lista_viajes = al.new_list()
+
+            al.add_last(lista_viajes, viaje)
+            mlp.put(mapa_barrios, barrio_encontrado, lista_viajes)
+
+    # Obtener los viajes del barrio solicitado
+    viajes_barrio = mlp.get(mapa_barrios, nombre_barrio)
+
+    # Si el barrio no existe o no hay viajes registrados
+    if viajes_barrio is None or al.size(viajes_barrio) == 0:
+        final = get_time()
+        return {
+            "tiempo_ms": delta_time(inicio, final),
+            "total_trayectos": 0,
+            "primeros": al.new_list(),
+            "ultimos": al.new_list()
+        }
+
+    # Convertir horas a enteros
+    hora_inicial = int(hora_inicial_str)
+    hora_final = int(hora_final_str)
+
+    # Filtrar viajes dentro del rango horario
+    filtrados = al.new_list()
+    total_viajes = al.size(viajes_barrio)
+
+    for i in range(total_viajes):
+        v = al.get_element(viajes_barrio, i)
+        hora = v["pickup_datetime"].hour
+        if hora_inicial <= hora <= hora_final:
+            al.add_last(filtrados, v)
+
+    # Ordenar del más antiguo al más reciente
+    def cmp_fecha_asc(a, b):
+        return a["pickup_datetime"] < b["pickup_datetime"]
+
+    al.selection_sort(filtrados, cmp_fecha_asc)
+
+    # Seleccionar primeros y últimos N
+    total_filtrados = al.size(filtrados)
+    limite = n_muestra if n_muestra < total_filtrados else total_filtrados
+    primeros = al.new_list()
+    ultimos = al.new_list()
+    fmt = "%Y-%m-%d %H:%M:%S"
+
+    # Primeros N
+    for i in range(limite):
+        v = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": v["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(v["pickup_latitude"], 5), round(v["pickup_longitude"], 5)],
+            "dropoff_datetime": v["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(v["dropoff_latitude"], 5), round(v["dropoff_longitude"], 5)],
+            "trip_distance": round(v["trip_distance"], 2),
+            "total_amount": round(v["total_amount"], 2)
+        }
+        al.add_last(primeros, info)
+
+    # Últimos N
+    for i in range(total_filtrados - limite, total_filtrados):
+        v = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": v["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(v["pickup_latitude"], 5), round(v["pickup_longitude"], 5)],
+            "dropoff_datetime": v["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(v["dropoff_latitude"], 5), round(v["dropoff_longitude"], 5)],
+            "trip_distance": round(v["trip_distance"], 2),
+            "total_amount": round(v["total_amount"], 2)
+        }
+        al.add_last(ultimos, info)
+
+    final = get_time()
+    tiempo = delta_time(inicio, final)
+
+    resultado = {
+        "tiempo_ms": round(tiempo, 2),
+        "total_trayectos": total_filtrados,
+        "primeros": primeros,
+        "ultimos": ultimos
+    }
+
+    return resultado
 
 
 # Funciones para medir tiempos de ejecucion
