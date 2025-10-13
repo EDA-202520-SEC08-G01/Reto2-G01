@@ -1,12 +1,14 @@
 import sys
-
+from App import logic as l
+from DataStructures import array_list as al
 
 def new_logic():
     """
         Se crea una instancia del controlador
     """
     #TODO: Llamar la función de la lógica donde se crean las estructuras de datos
-    pass
+    catalog = l.new_logic()
+    return catalog
 
 def print_menu():
     print("Bienvenido")
@@ -24,7 +26,9 @@ def load_data(control):
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    pass
+    filename = input("Ingrese el nombre del archivo: ")
+    _,tiempo,total,menor_dist,mayor_dist,primeros,ultimos = l.load_data(control, filename)
+    return _,tiempo,total,menor_dist,mayor_dist,primeros,ultimos
 
 
 def print_data(control, id):
@@ -32,13 +36,62 @@ def print_data(control, id):
         Función que imprime un dato dado su ID
     """
     #TODO: Realizar la función para imprimir un elemento
-    pass
+    id = input("Ingrese el indice del dato a consultar: ")
+    print(l.get_data(control, id))
 
 def print_req_1(control):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 1
+    fecha_inicial = input("Ingrese la fecha inicial (AAAA-MM-DD HH:MM:SS ejemplo: 2015-01-15 07:00:00): ")
+    fecha_final = input("Ingrese la fecha final (AAAA-MM-DD HH:MM:SS ejemplo: 2015-01-15 09:00:00): ")
+    n = int(input("Ingrese la cantidad de viajes a mostrar (n): "))
+    
+    print("\n--- Resultado Requerimiento 1 ---")
+    resultado = l.req_1(control, fecha_inicial, fecha_final, n)
+    
+    # Extraer información del resultado
+    tiempo_ms = al.get_element(resultado, 0)['tiempo_ms']
+    total_trayectos = al.get_element(resultado, 1)['total_trayectos']
+    primeros = al.get_element(resultado, 2)['primeros']
+    ultimos = al.get_element(resultado, 3)['ultimos']
+    
+    # Mostrar estadísticas generales
+    print(f"\nTiempo de ejecución: {tiempo_ms} ms")
+    print(f"Total de trayectos encontrados: {total_trayectos}\n")
+    
+    # Mostrar primeros N trayectos
+    print("=" * 80)
+    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+    print("=" * 80)
+    
+    for i in range(al.size(primeros)):
+        viaje = al.get_element(primeros, i)
+        print(f"\nTrayecto #{i + 1}:")
+        print(f"  Recogida: {viaje['pickup_datetime']}")
+        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+        print(f"  Entrega: {viaje['dropoff_datetime']}")
+        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+        print(f"  Distancia: {viaje['trip_distance']} millas")
+        print(f"  Costo total: ${viaje['total_amount']}")
+    
+    # Mostrar últimos N trayectos
+    print("\n" + "=" * 80)
+    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+    print("=" * 80)
+    
+    for i in range(al.size(ultimos)):
+        viaje = al.get_element(ultimos, i)
+        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+        print(f"\nTrayecto #{numero_trayecto}:")
+        print(f"  Recogida: {viaje['pickup_datetime']}")
+        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+        print(f"  Entrega: {viaje['dropoff_datetime']}")
+        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+        print(f"  Distancia: {viaje['trip_distance']} millas")
+        print(f"  Costo total: ${viaje['total_amount']}")
+    print("\n")
     pass
 
 
@@ -96,7 +149,34 @@ def main():
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 0:
             print("Cargando información de los archivos ....\n")
-            data = load_data(control)
+            _,tiempo,total,menor_dist,mayor_dist,primeros,ultimos = load_data(control)
+            print("Tiempo de carga (ms): " + str(tiempo))
+            print('Total de trayectos: ' + str(total))
+            print("\nTrayecto de menor distancia (distancia > 0.0 millas):")
+            print(f"  - Fecha/Hora de inicio: {menor_dist['inicio']}")
+            print(f"  - Distancia (millas): {menor_dist['distancia_millas']}")
+            print(f"  - Costo total (USD): {menor_dist['costo_total']}")
+            print("\nTrayecto de mayor distancia:")
+            print(f"  - Fecha/Hora de inicio: {mayor_dist['inicio']}")
+            print(f"  - Distancia (millas): {mayor_dist['distancia_millas']}")
+            print(f"  - Costo total (USD): {mayor_dist['costo_total']}")
+            print("\nPrimeros cinco trayectos cargados:")
+            for idx, t in enumerate(primeros, start=1):
+                print(f"  #{idx}")
+                print(f"    • Inicio: {t['inicio']}")
+                print(f"    • Fin: {t['fin']}")
+                print(f"    • Duración (min): {t['duracion_min']}")
+                print(f"    • Distancia (millas): {t['distancia_millas']}")
+                print(f"    • Costo total (USD): {t['costo_total']}")
+            print("\nÚltimos cinco trayectos cargados:")
+            for idx, t in enumerate(ultimos, start=1):
+                print(f"  #{idx}")
+                print(f"    • Inicio: {t['inicio']}")
+                print(f"    • Fin: {t['fin']}")
+                print(f"    • Duración (min): {t['duracion_min']}")
+                print(f"    • Distancia (millas): {t['distancia_millas']}")
+                print(f"    • Costo total (USD): {t['costo_total']}")
+                
         elif int(inputs) == 1:
             print_req_1(control)
 

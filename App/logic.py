@@ -164,7 +164,7 @@ def req_1(catalog, f_inicial, f_final, n):
     def cmp_pickup_datetime(trip1, trip2):
         return trip1["pickup_datetime"] < trip2["pickup_datetime"]
 
-    al.selection_sort(filtrados, cmp_pickup_datetime)
+    al.merge_sort(filtrados, cmp_pickup_datetime)
 
     total = al.size(filtrados)
     fmt = "%Y-%m-%d %H:%M:%S"
