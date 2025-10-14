@@ -433,7 +433,7 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
         final = get_time()
         resultado = al.new_list()
         al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)}) 
-        al.add_last(resultado, {"total_trayectos": total})
+        al.add_last(resultado, {"total_trayectos": total_filtrados})
         al.add_last(resultado, {"primeros": primeros})
         al.add_last(resultado, {"ultimos": ultimos})
         return resultado
