@@ -377,6 +377,15 @@ def req_5(catalog, fecha_hora, n):
 
     return resultado
 
+def haversine(lat1, lon1, lat2, lon2):
+        R = 6371.0 # radio tierra (km)
+        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+        c = 2 * math.asin(math.sqrt(a))
+        return R * c
+
 def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     
     inicio = get_time()
@@ -396,16 +405,19 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
         pickup_lat = viaje["pickup_latitude"]
         pickup_lon = viaje["pickup_longitude"]
 
-        # Buscar el barrio más cercano
+        # Buscar el barrio más cercano (menor distancia Haversine)
         barrio_encontrado = None
+        distancia_minima = float('inf')
+        
         for j in range(total_barrios):
             barrio = al.get_element(barrios, j)
-            if abs(barrio["latitude"] - pickup_lat) < 0.01 and abs(barrio["longitude"] - pickup_lon) < 0.01:
+            distancia = haversine(pickup_lat, pickup_lon, barrio["latitude"], barrio["longitude"])
+            
+            if distancia < distancia_minima:
+                distancia_minima = distancia
                 barrio_encontrado = barrio["neighborhood"]
-                break
 
         if barrio_encontrado is not None:
-            # Obtener lista actual o crear nueva
             lista_viajes = mlp.get(mapa_barrios, barrio_encontrado)
             if lista_viajes is None:
                 lista_viajes = al.new_list()
@@ -419,12 +431,12 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     # Si el barrio no existe o no hay viajes registrados
     if viajes_barrio is None or al.size(viajes_barrio) == 0:
         final = get_time()
-        return {
-            "tiempo_ms": delta_time(inicio, final),
-            "total_trayectos": 0,
-            "primeros": al.new_list(),
-            "ultimos": al.new_list()
-        }
+        resultado = al.new_list()
+        al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)}) 
+        al.add_last(resultado, {"total_trayectos": total})
+        al.add_last(resultado, {"primeros": primeros})
+        al.add_last(resultado, {"ultimos": ultimos})
+        return resultado
 
     # Convertir horas a enteros
     hora_inicial = int(hora_inicial_str)
@@ -437,14 +449,14 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     for i in range(total_viajes):
         v = al.get_element(viajes_barrio, i)
         hora = v["pickup_datetime"].hour
-        if hora_inicial <= hora <= hora_final:
+        if hora_inicial <= hora < hora_final:
             al.add_last(filtrados, v)
 
     # Ordenar del más antiguo al más reciente
     def cmp_fecha_asc(a, b):
         return a["pickup_datetime"] < b["pickup_datetime"]
 
-    al.merge_sort(filtrados, cmp_fecha_asc)
+    filtrados = al.merge_sort(filtrados, cmp_fecha_asc)
 
     # Seleccionar primeros y últimos N
     total_filtrados = al.size(filtrados)
@@ -482,13 +494,12 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     final = get_time()
     tiempo = delta_time(inicio, final)
 
-    resultado = {
-        "tiempo_ms": round(tiempo, 2),
-        "total_trayectos": total_filtrados,
-        "primeros": primeros,
-        "ultimos": ultimos
-    }
-
+    resultado = al.new_list()
+    al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)}) 
+    al.add_last(resultado, {"total_trayectos": total_filtrados})
+    al.add_last(resultado, {"primeros": primeros})
+    al.add_last(resultado, {"ultimos": ultimos})
+    
     return resultado
 
 
