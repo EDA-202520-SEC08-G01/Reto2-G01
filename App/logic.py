@@ -164,7 +164,7 @@ def req_1(catalog, f_inicial, f_final, n):
     def cmp_pickup_datetime(trip1, trip2):
         return trip1["pickup_datetime"] < trip2["pickup_datetime"]
 
-    al.merge_sort(filtrados, cmp_pickup_datetime)
+    filtrados = al.merge_sort(filtrados, cmp_pickup_datetime)
 
     total = al.size(filtrados)
     fmt = "%Y-%m-%d %H:%M:%S"
@@ -234,20 +234,86 @@ def req_4(catalog):
     pass
 
 
-def req_5(catalog):
-    """
-    Retorna el resultado del requerimiento 5
-    """
-    # TODO: Modificar el requerimiento 5
-    pass
+def req_5(catalog, fecha_hora, n):
+    
+    inicio = get_time()
+
+    taxis = catalog["taxis"]
+    mapa_horas = mlp.new_map(num_elements=al.size(taxis), load_factor=0.7)
+
+    for i in range(al.size(taxis)):
+        registro = al.get_element(taxis, i)
+
+        clave = registro["dropoff_datetime"].strftime("%Y-%m-%d %H")  
+        lista = mlp.get(mapa_horas, clave)
+        if lista is None:
+            lista = al.new_list()
+        al.add_last(lista, registro)
+        mlp.put(mapa_horas, clave, lista)
+
+    filtrados = mlp.get(mapa_horas, fecha_hora)
+
+    if filtrados is None or al.size(filtrados) == 0:
+        final = get_time()
+        tiempo = delta_time(inicio, final)
+        vacio = al.new_list()
+        resultado = al.new_list()
+        al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
+        al.add_last(resultado, {"total_trayectos": 0})
+        al.add_last(resultado, {"primeros": vacio})
+        al.add_last(resultado, {"ultimos": vacio})
+        return resultado
+
+    def cmp_dropoff_desc(trip1, trip2):
+        return trip1["dropoff_datetime"] > trip2["dropoff_datetime"]
+
+    filtrados = al.merge_sort(filtrados, cmp_dropoff_desc)
+
+    total = al.size(filtrados)
+    fmt = "%Y-%m-%d %H:%M:%S"
+    primeros = al.new_list()
+    ultimos = al.new_list()
+    limite = min(n, total)
+
+    for i in range(limite):
+        elem = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": elem["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(elem["pickup_latitude"], 5), round(elem["pickup_longitude"], 5)],
+            "dropoff_datetime": elem["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(elem["dropoff_latitude"], 5), round(elem["dropoff_longitude"], 5)],
+            "trip_distance": round(elem["trip_distance"], 2),
+            "total_amount": round(elem["total_amount"], 2)
+        }
+        al.add_last(primeros, info)
+
+    for i in range(total - limite, total):
+        elem = al.get_element(filtrados, i)
+        info = {
+            "pickup_datetime": elem["pickup_datetime"].strftime(fmt),
+            "pickup_coords": [round(elem["pickup_latitude"], 5), round(elem["pickup_longitude"], 5)],
+            "dropoff_datetime": elem["dropoff_datetime"].strftime(fmt),
+            "dropoff_coords": [round(elem["dropoff_latitude"], 5), round(elem["dropoff_longitude"], 5)],
+            "trip_distance": round(elem["trip_distance"], 2),
+            "total_amount": round(elem["total_amount"], 2)
+        }
+        al.add_last(ultimos, info)
+
+    final = get_time()
+    tiempo = delta_time(inicio, final)
+
+    resultado = al.new_list()
+    al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
+    al.add_last(resultado, {"total_trayectos": total})
+    al.add_last(resultado, {"primeros": primeros})
+    al.add_last(resultado, {"ultimos": ultimos})
+
+    return resultado
 
 def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     
     inicio = get_time()
 
-    # Crear tabla hash con linear probing
-    # num_elements = cantidad estimada de barrios
-    # load_factor = nivel máximo antes de rehash
     num_barrios = al.size(catalog["neighborhoods"])
     mapa_barrios = mlp.new_map(num_elements=num_barrios, load_factor=0.7)
 
@@ -311,7 +377,7 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
     def cmp_fecha_asc(a, b):
         return a["pickup_datetime"] < b["pickup_datetime"]
 
-    al.selection_sort(filtrados, cmp_fecha_asc)
+    al.merge_sort(filtrados, cmp_fecha_asc)
 
     # Seleccionar primeros y últimos N
     total_filtrados = al.size(filtrados)
