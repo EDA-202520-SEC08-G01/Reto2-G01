@@ -219,8 +219,7 @@ def req_2(catalog, lat_inicial, lat_final, n):
     
     taxis = catalog["taxis"]
     filtrados_lat = al.new_list()
-    
-    # Filtrar trayectos dentro del rango de latitud
+
     for i in range(al.size(taxis)):
         registro = al.get_element(taxis, i)
         pickup_lat = float(registro["pickup_latitude"])
@@ -232,11 +231,10 @@ def req_2(catalog, lat_inicial, lat_final, n):
         lat2 = float(trip2["pickup_latitude"])
         lon1 = float(trip1["pickup_longitude"])
         lon2 = float(trip2["pickup_longitude"])
-        
-        # Ordenar de mayor a menor latitud
+
         if lat1 != lat2:
             return lat1 > lat2
-        # Si latitudes iguales, ordenar de mayor a menor longitud
+
         else:
             return lon1 > lon2
     
@@ -438,7 +436,6 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
         al.add_last(resultado, {"ultimos": ultimos})
         return resultado
 
-    # Convertir horas a enteros
     hora_inicial = int(hora_inicial_str)
     hora_final = int(hora_final_str)
 

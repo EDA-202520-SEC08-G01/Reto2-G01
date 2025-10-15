@@ -164,6 +164,49 @@ def print_req_5(control):
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
+    fecha_hora_terminacion = (input("Ingrese la fecha y hora de terminacion a consultar ( (formato “%Y-%m-%d %H” ej.: 2015-01-15 08): "))
+    n = int(input("Ingrese la cantidad de viajes a mostrar (n): "))
+    
+    print("\n--- Resultado Requerimiento 5 ---")
+    resultado = l.req_5(control, fecha_hora_terminacion, n)
+    
+    tiempo_ms = al.get_element(resultado, 0)['tiempo_ms']
+    total_trayectos = al.get_element(resultado, 1)['total_trayectos']
+    primeros = al.get_element(resultado, 2)['primeros']
+    ultimos = al.get_element(resultado, 3)['ultimos']
+
+    print(f"\nTiempo de ejecución: {tiempo_ms} ms")
+    print(f"Total de trayectos encontrados: {total_trayectos}\n")
+    
+    print("=" * 80)
+    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+    print("=" * 80)
+    
+    for i in range(al.size(primeros)):
+        viaje = al.get_element(primeros, i)
+        print(f"\nTrayecto #{i + 1}:")
+        print(f"  Recogida: {viaje['pickup_datetime']}")
+        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+        print(f"  Entrega: {viaje['dropoff_datetime']}")
+        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+        print(f"  Distancia: {viaje['trip_distance']} millas")
+        print(f"  Costo total: ${viaje['total_amount']}")
+    
+    print("\n" + "=" * 80)
+    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+    print("=" * 80)
+    
+    for i in range(al.size(ultimos)):
+        viaje = al.get_element(ultimos, i)
+        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+        print(f"\nTrayecto #{numero_trayecto}:")
+        print(f"  Recogida: {viaje['pickup_datetime']}")
+        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+        print(f"  Entrega: {viaje['dropoff_datetime']}")
+        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+        print(f"  Distancia: {viaje['trip_distance']} millas")
+        print(f"  Costo total: ${viaje['total_amount']}")
+    print("\n")
     pass
 
 
