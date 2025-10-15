@@ -145,7 +145,6 @@ def load_data(catalog, filename):
     return retorno
 # Funciones de consulta sobre el catálogo
 
-
 def req_1(catalog, f_inicial, f_final, n):
     
     inicio = get_time()
@@ -208,7 +207,6 @@ def req_1(catalog, f_inicial, f_final, n):
     al.add_last(resultado, {"ultimos": ultimos})
 
     return resultado
-
 
 def req_2(catalog, lat_inicial, lat_final, n):
     """
@@ -281,7 +279,6 @@ def req_2(catalog, lat_inicial, lat_final, n):
     al.add_last(resultado, {"ultimos": ultimos})
     
     return resultado
-
 
 def req_3(catalog, dist_inicial, dist_final, n):
     
@@ -495,8 +492,8 @@ def haversine(lat1, lon1, lat2, lon2):
         c = 2 * math.asin(math.sqrt(a))
         return R * c
 
-def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
-    
+def req_6(catalog, barrio, hora_inicial, hora_final, n):
+
     inicio = get_time()
 
     num_barrios = al.size(catalog["neighborhoods"])
@@ -535,7 +532,7 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
             mlp.put(mapa_barrios, barrio_encontrado, lista_viajes)
 
     # Obtener los viajes del barrio solicitado
-    viajes_barrio = mlp.get(mapa_barrios, nombre_barrio)
+    viajes_barrio = mlp.get(mapa_barrios, barrio)
 
     # Si el barrio no existe o no hay viajes registrados
     if viajes_barrio is None or al.size(viajes_barrio) == 0:
@@ -547,8 +544,8 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
         al.add_last(resultado, {"ultimos": ultimos})
         return resultado
 
-    hora_inicial = int(hora_inicial_str)
-    hora_final = int(hora_final_str)
+    hora_inicial = int(hora_inicial)
+    hora_final = int(hora_final)
 
     # Filtrar viajes dentro del rango horario
     filtrados = al.new_list()
@@ -568,7 +565,7 @@ def req_6(catalog, nombre_barrio, hora_inicial_str, hora_final_str, n_muestra):
 
     # Seleccionar primeros y últimos N
     total_filtrados = al.size(filtrados)
-    limite = n_muestra if n_muestra < total_filtrados else total_filtrados
+    limite = n if n < total_filtrados else total_filtrados
     primeros = al.new_list()
     ultimos = al.new_list()
     fmt = "%Y-%m-%d %H:%M:%S"
