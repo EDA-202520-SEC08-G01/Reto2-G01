@@ -61,9 +61,30 @@ def print_req_1(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
@@ -128,9 +149,30 @@ def print_req_2(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
@@ -195,9 +237,30 @@ def print_req_3(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
@@ -262,9 +325,30 @@ def print_req_4(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
@@ -328,9 +412,30 @@ def print_req_5(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
@@ -394,9 +499,30 @@ def print_req_6(control):
     
     if total_trayectos < 2*n:
         print("=" * 80)
-        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        print("TOTAL {} TRAYECTOS:".format(total_trayectos))
+        all_trips = []
+
         for i in range(al.size(primeros)):
             viaje = al.get_element(primeros, i)
+            all_trips.append(viaje)
+
+        for i in range(al.size(ultimos) - 1, -1, -1):  
+            viaje = al.get_element(ultimos, i)
+
+            duplicado = False
+            for trip in all_trips:
+                if (viaje['pickup_datetime'] == trip['pickup_datetime'] and
+                    viaje['pickup_coords'] == trip['pickup_coords'] and
+                    viaje['dropoff_datetime'] == trip['dropoff_datetime'] and
+                    viaje['dropoff_coords'] == trip['dropoff_coords']):
+                    duplicado = True
+                    break
+
+            if not duplicado:
+                all_trips.append(viaje)
+
+        for i in range(len(all_trips)):
+            viaje = all_trips[i]
             print(f"\nTrayecto #{i + 1}:")
             print(f"  Recogida: {viaje['pickup_datetime']}")
             print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
