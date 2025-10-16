@@ -59,7 +59,7 @@ def print_req_1(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
@@ -126,7 +126,7 @@ def print_req_2(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
@@ -193,7 +193,7 @@ def print_req_3(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
@@ -260,7 +260,7 @@ def print_req_4(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
@@ -326,7 +326,7 @@ def print_req_5(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
@@ -392,7 +392,7 @@ def print_req_6(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    if total_trayectos < n:
+    if total_trayectos < 2*n:
         print("=" * 80)
         print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
         for i in range(al.size(primeros)):
