@@ -363,7 +363,7 @@ def req_4(catalog, fecha, momento, hora, n):
                 al.add_last(filtrados, viaje)
 
     def cmp_drop(v1, v2):
-        return v1["dropoff_datetime"] < v2["dropoff_datetime"]
+        return v1["dropoff_datetime"] > v2["dropoff_datetime"]
     
     filtrados = al.merge_sort(filtrados, cmp_drop)
     total = al.size(filtrados)
@@ -440,7 +440,7 @@ def req_5(catalog, fecha_hora, n):
         return resultado
 
     def cmp_dropoff(trip1, trip2):
-        return trip1["dropoff_datetime"] < trip2["dropoff_datetime"]
+        return trip1["dropoff_datetime"] > trip2["dropoff_datetime"]
 
     filtrados = al.merge_sort(filtrados, cmp_dropoff)
 
@@ -561,7 +561,7 @@ def req_6(catalog, nombre_barrio, hora_inicial, hora_final, n):
 
     # Ordenar del más antiguo al más reciente
     def cmp_fecha_asc(a, b):
-        return a["pickup_datetime"] < b["pickup_datetime"]
+        return a["pickup_datetime"] > b["pickup_datetime"]
 
     filtrados = al.merge_sort(filtrados, cmp_fecha_asc)
 
