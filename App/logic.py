@@ -492,7 +492,7 @@ def haversine(lat1, lon1, lat2, lon2):
         c = 2 * math.asin(math.sqrt(a))
         return R * c
 
-def req_6(catalog, barrio, hora_inicial, hora_final, n):
+def req_6(catalog, nombre_barrio, hora_inicial, hora_final, n):
 
     inicio = get_time()
 
@@ -532,7 +532,7 @@ def req_6(catalog, barrio, hora_inicial, hora_final, n):
             mlp.put(mapa_barrios, barrio_encontrado, lista_viajes)
 
     # Obtener los viajes del barrio solicitado
-    viajes_barrio = mlp.get(mapa_barrios, barrio)
+    viajes_barrio = mlp.get(mapa_barrios, nombre_barrio)
 
     # Si el barrio no existe o no hay viajes registrados
     if viajes_barrio is None or al.size(viajes_barrio) == 0:

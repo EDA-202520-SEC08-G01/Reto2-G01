@@ -59,34 +59,49 @@ def print_req_1(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{numero_trayecto}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
     pass
 
@@ -111,34 +126,49 @@ def print_req_2(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{numero_trayecto}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
     pass
 
@@ -163,34 +193,49 @@ def print_req_3(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        num = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{num}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
 
 
@@ -215,34 +260,49 @@ def print_req_4(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        num = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{num}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
 
 
@@ -266,34 +326,49 @@ def print_req_5(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{numero_trayecto}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
 
 def print_req_6(control):
@@ -317,34 +392,49 @@ def print_req_6(control):
     print(f"\nTiempo de ejecución: {tiempo_ms} ms")
     print(f"Total de trayectos encontrados: {total_trayectos}\n")
     
-    print("=" * 80)
-    print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
-    print("=" * 80)
+    if total_trayectos < n:
+        print("=" * 80)
+        print("TOTAL {} TRAYECTOS:".format(al.size(primeros)))
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
+        
+    else:
+        
+        print("=" * 80)
+        print("PRIMEROS {} TRAYECTOS:".format(al.size(primeros)))
+        print("=" * 80)
     
-    for i in range(al.size(primeros)):
-        viaje = al.get_element(primeros, i)
-        print(f"\nTrayecto #{i + 1}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(primeros)):
+            viaje = al.get_element(primeros, i)
+            print(f"\nTrayecto #{i + 1}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     
-    print("\n" + "=" * 80)
-    print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
-    print("=" * 80)
+        print("\n" + "=" * 80)
+        print("ÚLTIMOS {} TRAYECTOS:".format(al.size(ultimos)))
+        print("=" * 80)
     
-    for i in range(al.size(ultimos)):
-        viaje = al.get_element(ultimos, i)
-        numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
-        print(f"\nTrayecto #{numero_trayecto}:")
-        print(f"  Recogida: {viaje['pickup_datetime']}")
-        print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
-        print(f"  Entrega: {viaje['dropoff_datetime']}")
-        print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
-        print(f"  Distancia: {viaje['trip_distance']} millas")
-        print(f"  Costo total: ${viaje['total_amount']}")
+        for i in range(al.size(ultimos)):
+            viaje = al.get_element(ultimos, i)
+            numero_trayecto = total_trayectos - al.size(ultimos) + i + 1
+            print(f"\nTrayecto #{numero_trayecto}:")
+            print(f"  Recogida: {viaje['pickup_datetime']}")
+            print(f"  Coordenadas recogida: {viaje['pickup_coords']}")
+            print(f"  Entrega: {viaje['dropoff_datetime']}")
+            print(f"  Coordenadas entrega: {viaje['dropoff_coords']}")
+            print(f"  Distancia: {viaje['trip_distance']} millas")
+            print(f"  Costo total: ${viaje['total_amount']}")
     print("\n")
 
 # Se crea la lógica asociado a la vista
