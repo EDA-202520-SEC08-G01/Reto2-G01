@@ -362,10 +362,10 @@ def req_4(catalog, fecha, momento, hora, n):
             elif momento.lower() == "despues" and hora_viaje > hora:
                 al.add_last(filtrados, viaje)
 
-    def cmp_drop_descendiente(v1, v2):
-        return v1["dropoff_datetime"] > v2["dropoff_datetime"]
+    def cmp_drop(v1, v2):
+        return v1["dropoff_datetime"] < v2["dropoff_datetime"]
     
-    filtrados = al.merge_sort(filtrados, cmp_drop_descendiente)
+    filtrados = al.merge_sort(filtrados, cmp_drop)
     total = al.size(filtrados)
     fmt = "%Y-%m-%d %H:%M:%S"
     primeros = al.new_list()
@@ -422,6 +422,8 @@ def req_5(catalog, fecha_hora, n):
         if lista is None:
             lista = al.new_list()
         al.add_last(lista, registro)
+        if not(registro["pickup_latitude"] == 0 and registro["pickup_longitude"] == 0):
+            al.add_last(lista, registro)
         mlp.put(mapa_horas, clave, lista)
 
     filtrados = mlp.get(mapa_horas, fecha_hora)
@@ -437,10 +439,10 @@ def req_5(catalog, fecha_hora, n):
         al.add_last(resultado, {"ultimos": vacio})
         return resultado
 
-    def cmp_dropoff_desc(trip1, trip2):
-        return trip1["dropoff_datetime"] > trip2["dropoff_datetime"]
+    def cmp_dropoff(trip1, trip2):
+        return trip1["dropoff_datetime"] < trip2["dropoff_datetime"]
 
-    filtrados = al.merge_sort(filtrados, cmp_dropoff_desc)
+    filtrados = al.merge_sort(filtrados, cmp_dropoff)
 
     total = al.size(filtrados)
     fmt = "%Y-%m-%d %H:%M:%S"
