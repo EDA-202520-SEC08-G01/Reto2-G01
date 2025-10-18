@@ -422,8 +422,7 @@ def req_5(catalog, fecha_hora, n):
         if lista is None:
             lista = al.new_list()
         al.add_last(lista, registro)
-        if not(registro["pickup_latitude"] == 0 and registro["pickup_longitude"] == 0):
-            al.add_last(lista, registro)
+
         mlp.put(mapa_horas, clave, lista)
 
     filtrados = mlp.get(mapa_horas, fecha_hora)
@@ -561,7 +560,7 @@ def req_6(catalog, nombre_barrio, hora_inicial, hora_final, n):
 
     # Ordenar del más antiguo al más reciente
     def cmp_fecha_asc(a, b):
-        return a["pickup_datetime"] > b["pickup_datetime"]
+        return a["pickup_datetime"] < b["pickup_datetime"]
 
     filtrados = al.merge_sort(filtrados, cmp_fecha_asc)
 
