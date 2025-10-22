@@ -347,25 +347,61 @@ def req_4(catalog, fecha, momento, hora, n):
 
     inicio = get_time()
     taxis = catalog["taxis"]
-    filtrados = al.new_list()
-
-    fecha = datetime.strptime(fecha, "%Y-%m-%d").date()
-    hora = datetime.strptime(hora, "%H:%M:%S").time()
+    mapa_fechas = mlp.new_map(num_elements=al.size(taxis), load_factor=0.7)
 
     for i in range(al.size(taxis)):
         viaje = al.get_element(taxis, i)
         drop_dt = viaje["dropoff_datetime"]
-        if drop_dt.date() == fecha:
-            hora_viaje = drop_dt.time()
-            if momento.lower() == "antes" and hora_viaje < hora:
-                al.add_last(filtrados, viaje)
-            elif momento.lower() == "despues" and hora_viaje > hora:
-                al.add_last(filtrados, viaje)
 
-    def cmp_drop(v1, v2):
+        clave = drop_dt.strftime("%Y-%m-%d")
+        lista = mlp.get(mapa_fechas, clave)
+        if lista is None:
+            lista = al.new_list()
+        al.add_last(lista, viaje)
+        mlp.put(mapa_fechas, clave, lista)
+
+    fecha_str = datetime.strptime(fecha, "%Y-%m-%d").strftime("%Y-%m-%d")
+    viajes_fecha = mlp.get(mapa_fechas, fecha_str)
+
+    if viajes_fecha is None or al.size(viajes_fecha) == 0:
+        final = get_time()
+        tiempo = delta_time(inicio, final)
+        vacio = al.new_list()
+        resultado = al.new_list()
+        al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
+        al.add_last(resultado, {"total_trayectos": 0})
+        al.add_last(resultado, {"primeros": vacio})
+        al.add_last(resultado, {"ultimos": vacio})
+        return resultado
+
+    filtrados = al.new_list()
+    hora_ref = datetime.strptime(hora, "%H:%M:%S").time()
+    
+    for i in range(al.size(viajes_fecha)):
+        viaje = al.get_element(viajes_fecha, i)
+        hora_viaje = viaje["dropoff_datetime"].time()
+        
+        if momento.lower() == "antes" and hora_viaje < hora_ref:
+            al.add_last(filtrados, viaje)
+        elif momento.lower() == "despues" and hora_viaje > hora_ref:
+            al.add_last(filtrados, viaje)
+
+    if al.size(filtrados) == 0:
+        final = get_time()
+        tiempo = delta_time(inicio, final)
+        vacio = al.new_list()
+        resultado = al.new_list()
+        al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
+        al.add_last(resultado, {"total_trayectos": 0})
+        al.add_last(resultado, {"primeros": vacio})
+        al.add_last(resultado, {"ultimos": vacio})
+        return resultado
+
+    def cmp_dropoff(v1, v2):
         return v1["dropoff_datetime"] > v2["dropoff_datetime"]
     
-    filtrados = al.merge_sort(filtrados, cmp_drop)
+    filtrados = al.merge_sort(filtrados, cmp_dropoff)
+    
     total = al.size(filtrados)
     fmt = "%Y-%m-%d %H:%M:%S"
     primeros = al.new_list()
@@ -395,16 +431,16 @@ def req_4(catalog, fecha, momento, hora, n):
             "total_amount": round(elem["total_amount"], 2)
         }
         al.add_last(ultimos, info)
-
+    
     final = get_time()
     tiempo = delta_time(inicio, final)
-
+    
     resultado = al.new_list()
     al.add_last(resultado, {"tiempo_ms": round(tiempo, 2)})
     al.add_last(resultado, {"total_trayectos": total})
     al.add_last(resultado, {"primeros": primeros})
     al.add_last(resultado, {"ultimos": ultimos})
-
+    
     return resultado
 
 def req_5(catalog, fecha_hora, n):
